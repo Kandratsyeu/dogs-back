@@ -8,6 +8,7 @@ const getDogsFromDB = require('./db/get')
 const app = express()
 
 const PORT = process.env.PORT || 3200
+const DOGS_NUMBER = 100
 
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -32,7 +33,7 @@ MongoClient.connect(urlDB, async (err, database) => {
     console.log('Dogs collection was cleared')
   }
 
-  const dogs = await getDogsFromApi(3)
+  const dogs = await getDogsFromApi(DOGS_NUMBER)
   await putDogsIntoDB(dogs, breedsCollection, dogsCollection)
 
   app.get('/', async (req, res) => {
