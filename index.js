@@ -4,7 +4,7 @@ const getDogsFromApi = require('./db/dog-api')
 const bodyParser = require('body-parser')
 const putDogsIntoDB = require('./db/put')
 const getDogsFromDB = require('./db/get')
-const cors = reqire('cors')
+const cors = require('cors')
 
 const app = express()
 
@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3200
 const DOGS_NUMBER = 100
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors)
+app.use(cors())
 
 const urlDB =
   'mongodb+srv://admin:admin@cluster0.azcya.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
