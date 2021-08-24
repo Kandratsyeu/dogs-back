@@ -3,7 +3,8 @@ const MongoClient = require('mongodb').MongoClient
 const getDogsFromApi = require('./db/dog-api')
 const bodyParser = require('body-parser')
 const putDogsIntoDB = require('./db/put')
-const getDogsFromDB = require('./db/get')
+const getDogsFromDB = require('./db/get').getDogsFromDB
+const getDogsFromDBForBreed = require('./db/get').getDogsFromDBForBreed
 const cors = require('cors')
 
 const app = express()
@@ -40,6 +41,15 @@ MongoClient.connect(urlDB, async (err, database) => {
 
   app.get('/', async (req, res) => {
     const data = await getDogsFromDB(breedsCollection, dogsCollection)
+    res.send(JSON.stringify(data))
+  })
+
+  app.get('/:breed', async (req, res) => {
+    const data = await getDogsFromDBForBreed(
+      req.params.breed,
+      breedsCollection,
+      dogsCollection
+    )
     res.send(JSON.stringify(data))
   })
 

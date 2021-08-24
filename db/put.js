@@ -5,7 +5,9 @@ const putDogsIntoDB = async function (dogs, breedsCollection, dogsCollection) {
   console.log('Breeds written to DB')
 
   dogs.forEach((dog) => {
-    dog.breedId = breeds.find((breed) => dog.breed === breed.title)._id
+    dog.breedId = breeds
+      .find((breed) => dog.breed === breed.title)
+      ._id.toString()
     delete dog.breed
   })
 

@@ -8,4 +8,22 @@ const getDogsFromDB = async function (breedsCollection, dogsCollection) {
   }))
 }
 
-module.exports = getDogsFromDB
+const getDogsFromDBForBreed = async function (
+  breed,
+  breedsCollection,
+  dogsCollection
+) {
+  const breedId = await breedsCollection
+    .findOne({ title: breed })
+    .then((res) => {
+      return res
+    })
+  if (breedId) {
+    return dogsCollection.find({ breedId: breedId._id.toString() }).toArray()
+  }
+}
+
+module.exports = {
+  getDogsFromDB: getDogsFromDB,
+  getDogsFromDBForBreed: getDogsFromDBForBreed,
+}
